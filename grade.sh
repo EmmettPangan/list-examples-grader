@@ -34,4 +34,5 @@ else
         grade=100
     fi
 fi
-echo "Grade: $grade"
+cat results.txt
+echo "GRADE: $grade"
