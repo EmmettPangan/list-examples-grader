@@ -14,25 +14,26 @@ cd student-submission
 javac ListExamples.java
 if [[ $? != 0 ]]
 then
-    grade=0 
-    echo "Grade: $grade"
+    echo "GRADE: 0.00"
     exit 1
 else 
     javac -cp $CPATH TestListExamples.java
     java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > results.txt
+    cat results.txt
     numTests=`grep -oE "Tests run: [0-9]+," results.txt | grep -oE "[0-9]+"`
     numFailures=`grep -oE "Failures: [0-9]+" results.txt | grep -oE "[0-9]+"`
     if [[ $numTests -eq 0 ]]
     then
-        grade=0
+        echo "GRADE: 0.00"
+        exit 1
     else
-        let grade=($numTests-$numFailures)*100/$numTests
+        echo "GRADE: "$((10000*($numTests-$numFailures)/$numTests)) | sed -e 's/..$/.&/;t' -e 's/.$/.0&/'
+        exit 1
     fi
 
     if grep -qE "OK \([0-9]+ test[s]?\)" results.txt
     then
-        grade=100
+        echo "GRADE: 100.00"
+        exit 1
     fi
 fi
-cat results.txt
-echo "GRADE: $grade"
