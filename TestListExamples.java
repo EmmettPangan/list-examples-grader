@@ -18,14 +18,4 @@ public class TestListExamples {
     List<String> expected = Arrays.asList("a", "a", "b", "c", "d");
     assertEquals(expected, merged);
   }
-
-  @Test
-  public void testTrue() {
-    assertFalse(true);
-  }
-
-  @Test
-  public void testTrue2() {
-    assertFalse(true);
-  }
 }
